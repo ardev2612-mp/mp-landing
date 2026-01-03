@@ -574,6 +574,57 @@
       }
     }
   </script>
+<!-- Banner Cookie -->
+<div id="cookie-banner" class="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 shadow-lg hidden">
+
+  <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+
+    <p class="text-sm text-slate-600">
+      Website ini menggunakan cookie untuk meningkatkan pengalaman pengguna.
+      Dengan melanjutkan penggunaan situs ini, Anda menyetujui penggunaan cookie kami.
+      <a href="/privacy-policy.html" class="text-blue-600 underline hover:text-blue-700">
+        Pelajari kebijakan cookie
+      </a>.
+    </p>
+
+    <div class="flex gap-3">
+      <button onclick="tolakCookie()"
+        class="px-4 py-2 rounded-lg bg-slate-200 text-slate-700 font-semibold hover:bg-slate-300 transition">
+        Tolak
+      </button>
+
+      <button onclick="terimaCookie()"
+        class="px-4 py-2 rounded-lg bg-green-600 text-white font-semibold hover:bg-green-700 transition">
+        Terima
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const cookieBanner = document.getElementById('cookie-banner');
+
+  function showCookieBanner() {
+    const consent = localStorage.getItem('cookie_consent');
+    if (!consent) {
+      cookieBanner.classList.remove('hidden');
+    }
+  }
+
+  function acceptCookies() {
+    localStorage.setItem('cookie_consent', 'accepted');
+    cookieBanner.classList.add('hidden');
+  }
+
+  function rejectCookies() {
+    localStorage.setItem('cookie_consent', 'rejected');
+    cookieBanner.classList.add('hidden');
+  }
+
+  document.addEventListener('DOMContentLoaded', showCookieBanner);
+</script>
+
 </body>
 
 </html>
