@@ -2,528 +2,695 @@
 <html lang="id" class="scroll-smooth">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MaticPost - Manajemen Media Sosial Modern</title>
-  <meta name="description" content="Automasi posting sosial media dengan Maticpost. Hemat waktu, tingkatkan engagement.">
-  <meta name="keywords" content="social media automation, saas, scheduler, maticpost">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MaticPost - Kelola Sosmed Jadi Otomatis</title>
+    <meta name="description" content="Platform manajemen sosial media #1 di Indonesia dengan pembayaran lokal.">
 
-    .glass-bg {
-      background: radial-gradient(circle at top right, #e0e7ff, transparent),
-        radial-gradient(circle at bottom left, #f5f3ff, transparent);
-    }
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
-    /* Logika Multi-bahasa yang lebih kuat */
-    [lang-content] {
-      display: none;
-    }
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
-    /* Sembunyikan semua konten bahasa secara default */
-    .active-lang {
-      display: block !important;
-    }
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    .active-lang-inline {
-      display: inline !important;
-    }
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9', // Sky blue like generic SaaS
+                            600: '#0284c7',
+                            900: '#0c4a6e',
+                        },
+                        accent: {
+                            500: '#6366f1', // Indigo
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 
-    .active-lang-flex {
-      display: flex !important;
-    }
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
 
-    .pricing-grid {
-      display: grid;
-      gap: 1.5rem;
-      grid-template-columns: repeat(1, minmax(0, 1fr));
-    }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
 
-    @media (min-width: 768px) {
-      .pricing-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
 
-    @media (min-width: 1024px) {
-      .pricing-grid {
-        grid-template-columns: repeat(6, minmax(0, 1fr));
-      }
-    }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
 
-    /* Glassmorphism Card Style */
-    .glass-card {
-      background: rgba(255, 255, 255, 0.45);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
-    }
+        /* Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
 
-    .glass-card-dark {
-      background: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-    }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-    .billing-toggle {
-      display: flex;
-      background: #f1f5f9;
-      padding: 4px;
-      border-radius: 12px;
-      border: 1px solid #e2e8f0;
-      width: fit-content;
-      margin: 0 auto 3rem auto;
-    }
-
-    .toggle-btn {
-      padding: 8px 24px;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 0.875rem;
-      transition: all 0.3s;
-    }
-
-    .toggle-btn.active {
-      background: #3b82f6;
-      color: white;
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-    }
-
-    .toggle-btn.inactive {
-      color: #64748b;
-    }
-  </style>
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
 </head>
 
-<body class="glass-bg text-slate-900 transition-all duration-300">
+<body class="font-sans text-slate-800 bg-slate-50 overflow-x-hidden">
 
-  <nav class="fixed w-full z-50 bg-white/70 backdrop-blur-xl border-b border-slate-100">
-    <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-      <div class="flex items-center gap-2">
-        <div
-          class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-200">
-          M</div>
-        <span class="text-xl font-extrabold tracking-tight text-slate-900">MaticPost</span>
-      </div>
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 transition-all duration-300 glass" id="navbar">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 group">
+                <div
+                    class="w-10 h-10 bg-gradient-to-tr from-brand-500 to-accent-500 rounded-lg flex items-center justify-center text-white text-xl font-bold shadow-lg group-hover:rotate-12 transition-transform">
+                    M
+                </div>
+                <span
+                    class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-brand-600 to-accent-500">MaticPost</span>
+            </a>
 
-      <div class="hidden md:flex items-center space-x-10 font-medium text-slate-600">
-        <a href="#fitur" class="hover:text-blue-600 transition" data-id="nav-features" data-en="Features">Fitur</a>
-        <a href="#kenapa" class="hover:text-blue-600 transition" data-id="nav-why" data-en="Why Us">Mengapa
-          Kami</a>
-        <a href="#tutorial" class="hover:text-blue-600 transition" data-id="nav-tutorial"
-          data-en="Tutorial">Tutorial</a>
-        <a href="#harga" class="hover:text-blue-600 transition" data-id="nav-pricing" data-en="Pricing">Harga</a>
-      </div>
-
-      <div class="flex items-center gap-4">
-        <div class="bg-slate-100 p-1 rounded-lg flex text-xs font-bold border border-slate-200">
-          <button onclick="changeLang('id')" id="btn-id"
-            class="px-3 py-1.5 rounded-md bg-white shadow-sm text-blue-600 transition border border-slate-200">ID</button>
-          <button onclick="changeLang('en')" id="btn-en"
-            class="px-3 py-1.5 rounded-md text-slate-500 transition">EN</button>
-        </div>
-        <a href="https://app.maticpost.com/maticpost/login"
-          class="bg-slate-900 text-white px-6 py-2.5 rounded-xl font-semibold hover:bg-blue-600 transition shadow-lg shadow-slate-200 text-sm"><span lang-content="id" class="active-lang">Coba gratis</span><span lang-content="en">Try Free</span></a>
-      </div>
-    </div>
-  </nav>
-
-  <header class="pt-40 pb-16 px-6">
-    <div class="max-w-4xl mx-auto text-center">
-      <div
-        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-sm font-semibold mb-8">
-        <span lang-content="id" class="active-lang">✨ Solusi Manajemen Konten Cerdas</span>
-        <span lang-content="en">✨ Smart Content Management Solution</span>
-      </div>
-
-      <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-8 leading-[1.1]">
-        <span lang-content="id" class="active-lang">Satu Platform untuk <span class="text-blue-600">Semua
-            Konten</span> Sosial Media.</span>
-        <span lang-content="en">One Platform for <span class="text-blue-600">All Your</span> Social
-          Media.</span>
-      </h1>
-
-      <p class="text-xl text-slate-500 mb-12 max-w-2xl mx-auto leading-relaxed">
-        <span lang-content="id" class="active-lang">Jadwalkan postingan, kelola aset, dan analisis performa di
-          berbagai platform dalam satu dashboard yang elegan dan terpusat.</span>
-        <span lang-content="en">Schedule posts, manage assets, and analyze performance across various platforms
-          in one elegant and centralized dashboard.</span>
-      </p>
-
-      <div class="flex flex-col sm:flex-row justify-center gap-4 mb-20">
-        <button
-          class="bg-blue-600 text-white px-10 py-4 rounded-2xl text-lg font-bold hover:bg-blue-700 shadow-xl shadow-blue-200 transition">
-          <span lang-content="id" class="active-lang">Mulai Sekarang</span>
-          <span lang-content="en">Get Started</span>
-        </button>
-      </div>
-
-      <div class="relative max-w-5xl mx-auto">
-        <div class="absolute -inset-1 bg-gradient-to-r from-blue-400 to-blue-600 rounded-3xl blur opacity-15">
-        </div>
-        <div class="relative bg-white border border-slate-200 p-2 rounded-3xl shadow-2xl overflow-hidden">
-          <div
-            class="bg-slate-100 h-[400px] md:h-[500px] rounded-2xl flex items-center justify-center text-slate-400 font-medium italic">
-            <span lang-content="id" class="active-lang">[Screenshot Dashboard MaticPost]</span>
-            <span lang-content="en">[MaticPost Dashboard Screenshot]</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <section class="py-12 border-y border-slate-100 bg-white/50">
-    <div class="max-w-7xl mx-auto px-6 text-center">
-      <p class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-8 active-lang" lang-content="id">
-        Mendukung Platform Favorit Anda</p>
-      <p class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-8" lang-content="en">Supports Your
-        Favorite Platforms</p>
-      <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale">
-        <span class="text-xl font-bold">Facebook</span>
-        <span class="text-xl font-bold">Instagram</span>
-        <span class="text-xl font-bold">Twitter / X</span>
-        <span class="text-xl font-bold">LinkedIn</span>
-        <span class="text-xl font-bold">TikTok</span>
-      </div>
-    </div>
-  </section>
-
-  <section id="kenapa" class="py-24 relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center mb-16" data-aos="fade-up">
-        <h2 class="text-4xl font-extrabold text-slate-900 active-lang" lang-content="id">Mengapa Memilih
-          MaticPost?</h2>
-        <h2 class="text-4xl font-extrabold text-slate-900" lang-content="en">Why Choose MaticPost?</h2>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-6 gap-8">
-
-        <div
-          class="md:col-span-3 glass-card rounded-[2rem] overflow-hidden group transition-all duration-500 hover:-translate-y-2"
-          data-aos="fade-right" data-aos-delay="100">
-          <div class="h-60 bg-[#EEF2FF] flex items-center justify-center relative overflow-hidden">
-            <div class="w-32 h-20 bg-indigo-600 rounded-lg shadow-2xl flex flex-col p-2 gap-2">
-              <div class="w-full h-1 bg-white/20 rounded"></div>
-              <div class="w-2/3 h-1 bg-white/20 rounded"></div>
-              <div
-                class="absolute top-10 right-10 w-12 h-12 bg-indigo-900 rounded-xl flex items-center justify-center shadow-xl">
-                <span class="text-white">🔒</span>
-              </div>
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#features" class="text-slate-600 hover:text-brand-600 font-medium transition">Fitur</a>
+                <a href="#how-it-works" class="text-slate-600 hover:text-brand-600 font-medium transition">Cara
+                    Kerja</a>
+                <a href="#pricing" class="text-slate-600 hover:text-brand-600 font-medium transition">Harga</a>
             </div>
-          </div>
-          <div class="p-8">
-            <span class="text-indigo-600 text-[10px] font-bold uppercase tracking-widest">Data Ownership</span>
-            <h3 class="text-xl font-extrabold mt-2 text-slate-900">Your data, your servers</h3>
-            <p class="text-slate-500 mt-4 text-sm leading-relaxed">Keep complete control over your social media
-              data and analytics. No third-party access, complete privacy and security on your own
-              infrastructure.</p>
-          </div>
-        </div>
 
-        <div
-          class="md:col-span-3 glass-card rounded-[2rem] overflow-hidden group transition-all duration-500 hover:-translate-y-2"
-          data-aos="fade-left" data-aos-delay="200">
-          <div class="h-60 bg-[#ECFEFF] flex items-center justify-center">
-            <div class="relative w-40 h-28 bg-cyan-500 rounded-lg shadow-xl flex items-center justify-center">
-              <div
-                class="absolute -top-4 -right-4 w-12 h-12 bg-white rounded-lg shadow-md flex items-center justify-center text-cyan-500">
-                ⚙️</div>
-              <div class="w-full px-4 space-y-2">
-                <div class="h-1 w-full bg-white/30 rounded"></div>
-                <div class="h-1 w-3/4 bg-white/30 rounded"></div>
-              </div>
+            <!-- CTA Button -->
+            <div class="hidden md:flex items-center gap-4">
+                <a href="https://app.maticpost.com/login"
+                    class="text-slate-600 hover:text-brand-600 font-medium">Masuk</a>
+                <a href="#pricing"
+                    class="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-full font-medium transition shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                    Mulai Gratis
+                </a>
             </div>
-          </div>
-          <div class="p-8">
-            <span class="text-cyan-600 text-[10px] font-bold uppercase tracking-widest">Customization</span>
-            <h3 class="text-xl font-extrabold mt-2 text-slate-900">Extend & modify freely</h3>
-            <p class="text-slate-500 mt-4 text-sm leading-relaxed">Access to source code means unlimited
-              possibilities. Integrate with your existing tools, build custom features, and tailor MaticPost
-              to your exact needs.</p>
-          </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-slate-700 focus:outline-none" onclick="toggleMenu()">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
         </div>
 
-        <div
-          class="md:col-span-2 glass-card rounded-[2rem] overflow-hidden group transition-all duration-500 hover:-translate-y-2"
-          data-aos="fade-up" data-aos-delay="300">
-          <div class="h-48 bg-[#FFFBEB] flex items-center justify-center">
-            <div class="flex items-end gap-2">
-              <div class="w-6 h-12 bg-orange-400 rounded-t"></div>
-              <div class="w-6 h-20 bg-orange-500 rounded-t"></div>
-              <div class="w-6 h-28 bg-orange-600 rounded-t relative">
-                <div class="absolute -top-6 left-0 text-orange-600 font-bold">∞</div>
-              </div>
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 p-4 absolute w-full shadow-lg">
+            <a href="#features" class="block py-3 text-slate-600 font-medium">Fitur</a>
+            <a href="#pricing" class="block py-3 text-slate-600 font-medium">Harga</a>
+            <a href="https://app.maticpost.com/login" class="block py-3 text-brand-600 font-bold">Masuk / Daftar</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <!-- Background Blobs -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
+            <div
+                class="absolute top-0 left-1/4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob">
             </div>
-          </div>
-          <div class="p-8">
-            <span class="text-orange-600 text-[10px] font-bold uppercase tracking-widest">Cost-Effective</span>
-            <h3 class="text-lg font-extrabold mt-2 text-slate-900">Scale without limits</h3>
-            <p class="text-slate-500 mt-4 text-xs leading-relaxed">No per-user fees or account limits. Pay once
-              and scale as much as you need with your own infrastructure.</p>
-          </div>
-        </div>
-
-        <div
-          class="md:col-span-2 glass-card rounded-[2rem] overflow-hidden group transition-all duration-500 hover:-translate-y-2"
-          data-aos="fade-up" data-aos-delay="400">
-          <div class="h-48 bg-[#F5F3FF] flex items-center justify-center">
-            <div class="w-32 h-24 bg-slate-900 rounded-lg p-3 relative shadow-2xl">
-              <div class="flex gap-1 mb-2">
-                <div class="w-1.5 h-1.5 rounded-full bg-red-500"></div>
-                <div class="w-1.5 h-1.5 rounded-full bg-yellow-500"></div>
-                <div class="w-1.5 h-1.5 rounded-full bg-green-500"></div>
-              </div>
-              <div class="text-[8px] text-green-400 font-mono">$ docker up -d</div>
-              <div
-                class="absolute -bottom-2 -right-2 w-8 h-8 bg-blue-500 rounded-md flex items-center justify-center text-[10px]">
-                🐳</div>
+            <div
+                class="absolute top-0 right-1/4 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000">
             </div>
-          </div>
-          <div class="p-8">
-            <span class="text-indigo-600 text-[10px] font-bold uppercase tracking-widest">Installation</span>
-            <h3 class="text-lg font-extrabold mt-2 text-slate-900">Deploy in minutes</h3>
-            <p class="text-slate-500 mt-4 text-xs leading-relaxed">Choose from Docker containers, as a Laravel
-              package, or manual installation. Works with any VPS provider.</p>
-          </div>
-        </div>
-
-        <div
-          class="md:col-span-2 glass-card rounded-[2rem] overflow-hidden group transition-all duration-500 hover:-translate-y-2"
-          data-aos="fade-up" data-aos-delay="500">
-          <div class="h-48 bg-[#F0FDFA] flex items-center justify-center">
-            <div class="relative w-20 h-20 bg-teal-500 rounded-full flex items-center justify-center shadow-lg">
-              <span class="text-white text-2xl">💼</span>
-              <div
-                class="absolute -top-4 w-8 h-8 bg-white rounded-full shadow flex items-center justify-center text-xs">
-                🏢</div>
-              <div
-                class="absolute -bottom-4 w-8 h-8 bg-white rounded-full shadow flex items-center justify-center text-xs">
-                ✅</div>
+            <div
+                class="absolute -bottom-8 left-1/2 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-4000">
             </div>
-          </div>
-          <div class="p-8">
-            <span class="text-teal-600 text-[10px] font-bold uppercase tracking-widest">Perfect For</span>
-            <h3 class="text-lg font-extrabold mt-2 text-slate-900">Agencies & enterprises</h3>
-            <p class="text-slate-500 mt-4 text-xs leading-relaxed">Ideal for agencies, developers,
-              privacy-conscious teams, and high-volume users who need complete control.</p>
-          </div>
         </div>
 
-      </div>
-    </div>
-  </section>
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-12 text-center lg:text-left">
 
-  <section id="tutorial" class="py-24 bg-slate-900 text-white overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-extrabold mb-4 active-lang" lang-content="id">Cara Kerja
-          MaticPost</h2>
-        <h2 class="text-3xl md:text-4xl font-extrabold mb-4" lang-content="en">How MaticPost Works</h2>
-      </div>
-      <div class="grid md:grid-cols-3 gap-12">
-        <div class="relative">
-          <div class="text-6xl font-bold text-blue-500/20 absolute -top-8 -left-4">01</div>
-          <h4 class="text-xl font-bold mb-4 relative active-lang" lang-content="id">Hubungkan Akun
-          </h4>
-          <h4 class="text-xl font-bold mb-4 relative" lang-content="en">Connect Accounts</h4>
-          <p class="text-slate-400 active-lang" lang-content="id">Integrasikan akun media sosial Anda
-            hanya dengan beberapa klik yang mudah.</p>
-          <p class="text-slate-400" lang-content="en">Integrate your social media accounts with just a few
-            easy clicks.</p>
+                <!-- Text Content -->
+                <div class="lg:w-1/2 reveal active">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-brand-600 text-sm font-semibold mb-6 border border-blue-100">
+                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                        Alternatif #1 Hootsuite di Indonesia
+                    </div>
+                    <h1 class="text-4xl lg:text-6xl font-extrabold text-slate-900 leading-tight mb-6">
+                        Satu Dashboard untuk <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-accent-500">Semua
+                            Sosmed Anda</span>
+                    </h1>
+                    <p class="text-lg text-slate-600 mb-8 leading-relaxed">
+                        Jadwalkan postingan ke Instagram, Facebook, Twitter, dan TikTok sekaligus.
+                        Hemat waktu 10 jam per minggu. Bayar mudah pakai QRIS & E-Wallet.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#pricing"
+                            class="px-8 py-4 bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 text-white rounded-full font-bold shadow-lg hover:shadow-brand-500/50 transition transform hover:-translate-y-1">
+                            Coba Sekarang <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                        <a href="#features"
+                            class="px-8 py-4 bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 rounded-full font-bold transition flex items-center justify-center gap-2">
+                            <i class="fas fa-play-circle text-slate-400"></i> Lihat Demo
+                        </a>
+                    </div>
+                    <div class="mt-8 flex items-center justify-center lg:justify-start gap-4 text-sm text-slate-500">
+                        <span class="flex items-center gap-1"><i class="fas fa-check text-green-500"></i> Tanpa Kartu
+                            Kredit</span>
+                        <span class="flex items-center gap-1"><i class="fas fa-check text-green-500"></i> Setup 2
+                            Menit</span>
+                    </div>
+                </div>
+
+                <!-- Hero Image / Abstract Dashboard -->
+                <div class="lg:w-1/2 relative reveal active delay-200">
+                    <div class="relative bg-white rounded-2xl shadow-2xl border border-slate-200 p-2 animate-float">
+                        <!-- Browser Header -->
+                        <div
+                            class="h-8 bg-slate-50 rounded-t-xl border-b border-slate-100 flex items-center px-4 gap-2">
+                            <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                            <div class="ml-4 px-3 py-1 bg-white rounded text-xs text-slate-400 w-64 shadow-sm">
+                                app.maticpost.com/dashboard</div>
+                        </div>
+                        <!-- Dashboard UI Mockup -->
+                        <div class="p-6 grid grid-cols-12 gap-6 h-[400px] overflow-hidden bg-slate-50/50">
+                            <!-- Sidebar -->
+                            <div class="col-span-3 space-y-3">
+                                <div class="h-8 w-24 bg-slate-200 rounded animate-pulse"></div>
+                                <div class="h-4 w-full bg-slate-200 rounded mt-6"></div>
+                                <div class="h-4 w-2/3 bg-slate-200 rounded"></div>
+                                <div class="h-4 w-3/4 bg-slate-200 rounded"></div>
+                            </div>
+                            <!-- Main Content -->
+                            <div class="col-span-9 space-y-4">
+                                <!-- Stats -->
+                                <div class="grid grid-cols-3 gap-4">
+                                    <div
+                                        class="h-24 bg-white rounded-lg shadow-sm p-3 border border-slate-100 flex flex-col justify-between">
+                                        <div
+                                            class="w-8 h-8 rounded bg-blue-100 text-blue-500 flex items-center justify-center">
+                                            <i class="fab fa-facebook-f"></i></div>
+                                        <div class="h-4 w-12 bg-slate-200 rounded"></div>
+                                    </div>
+                                    <div
+                                        class="h-24 bg-white rounded-lg shadow-sm p-3 border border-slate-100 flex flex-col justify-between">
+                                        <div
+                                            class="w-8 h-8 rounded bg-pink-100 text-pink-500 flex items-center justify-center">
+                                            <i class="fab fa-instagram"></i></div>
+                                        <div class="h-4 w-12 bg-slate-200 rounded"></div>
+                                    </div>
+                                    <div
+                                        class="h-24 bg-white rounded-lg shadow-sm p-3 border border-slate-100 flex flex-col justify-between">
+                                        <div
+                                            class="w-8 h-8 rounded bg-black text-white flex items-center justify-center">
+                                            <i class="fab fa-tiktok"></i></div>
+                                        <div class="h-4 w-12 bg-slate-200 rounded"></div>
+                                    </div>
+                                </div>
+                                <!-- Calendar Mockup -->
+                                <div class="bg-white rounded-lg shadow-sm border border-slate-100 h-full p-4">
+                                    <div class="flex justify-between mb-4">
+                                        <div class="h-6 w-32 bg-slate-200 rounded"></div>
+                                        <div
+                                            class="h-8 w-24 bg-brand-500 rounded text-white text-xs flex items-center justify-center">
+                                            New Post +</div>
+                                    </div>
+                                    <div class="grid grid-cols-7 gap-2 h-48">
+                                        <!-- Days -->
+                                        <div class="bg-slate-50 rounded border border-dashed border-slate-200"></div>
+                                        <div
+                                            class="bg-slate-50 rounded border border-dashed border-slate-200 relative group">
+                                            <div
+                                                class="absolute top-2 left-2 right-2 h-8 bg-blue-100 rounded text-[8px] p-1 text-blue-600 flex items-center gap-1 shadow-sm group-hover:-translate-y-1 transition">
+                                                <i class="fab fa-twitter"></i> Promo..
+                                            </div>
+                                        </div>
+                                        <div class="bg-slate-50 rounded border border-dashed border-slate-200"></div>
+                                        <div class="bg-slate-50 rounded border border-dashed border-slate-200 relative">
+                                            <div
+                                                class="absolute bottom-2 left-2 right-2 h-16 bg-pink-50 rounded text-[8px] p-1 text-pink-600 border border-pink-100 flex flex-col items-center justify-center gap-1 shadow-sm">
+                                                <i class="fab fa-instagram text-lg"></i> Image
+                                            </div>
+                                        </div>
+                                        <div class="bg-slate-50 rounded border border-dashed border-slate-200"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Floating Badge -->
+                    <div class="absolute -bottom-6 -right-6 bg-white p-4 rounded-xl shadow-xl border border-slate-100 flex items-center gap-3 animate-bounce"
+                        style="animation-duration: 3s;">
+                        <div class="bg-green-100 p-2 rounded-full text-green-600">
+                            <i class="fas fa-check-circle text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500">Status Postingan</p>
+                            <p class="font-bold text-slate-800">Berhasil Terkirim!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="relative">
-          <div class="text-6xl font-bold text-blue-500/20 absolute -top-8 -left-4">02</div>
-          <h4 class="text-xl font-bold mb-4 relative active-lang" lang-content="id">Buat Konten</h4>
-          <h4 class="text-xl font-bold mb-4 relative" lang-content="en">Create Content</h4>
-          <p class="text-slate-400 active-lang" lang-content="id">Gunakan editor canggih kami untuk
-            membuat postingan yang menarik bagi audiens Anda.</p>
-          <p class="text-slate-400" lang-content="en">Use our advanced editor to create posts that engage your
-            audience.</p>
+    </section>
+
+    <!-- Social Proof -->
+    <section class="py-10 border-y border-slate-200 bg-white">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-6">Mendukung Platform Populer</p>
+            <div
+                class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+                <i class="fab fa-facebook text-4xl text-blue-600 hover:scale-110 transition"></i>
+                <i class="fab fa-instagram text-4xl text-pink-600 hover:scale-110 transition"></i>
+                <i class="fab fa-twitter text-4xl text-sky-500 hover:scale-110 transition"></i>
+                <i class="fab fa-tiktok text-4xl text-black hover:scale-110 transition"></i>
+                <i class="fab fa-linkedin text-4xl text-blue-700 hover:scale-110 transition"></i>
+                <i class="fab fa-youtube text-4xl text-red-600 hover:scale-110 transition"></i>
+            </div>
         </div>
-        <div class="relative">
-          <div class="text-6xl font-bold text-blue-500/20 absolute -top-8 -left-4">03</div>
-          <h4 class="text-xl font-bold mb-4 relative active-lang" lang-content="id">Jadwalkan</h4>
-          <h4 class="text-xl font-bold mb-4 relative" lang-content="en">Schedule</h4>
-          <p class="text-slate-400 active-lang" lang-content="id">Tentukan waktu tayang dan biarkan
-            sistem bekerja secara otomatis untuk Anda.</p>
-          <p class="text-slate-400" lang-content="en">Set the publishing time and let the system work
-            automatically for you.</p>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-24 bg-slate-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Fitur Canggih untuk Pertumbuhan Bisnis
+                </h2>
+                <p class="text-lg text-slate-600">Lupakan cara lama yang ribet. MaticPost memberikan semua tools yang
+                    Anda butuhkan untuk mendominasi media sosial.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div
+                    class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition duration-300 reveal">
+                    <div
+                        class="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 text-2xl mb-6">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Jadwal & Publish Otomatis</h3>
+                    <p class="text-slate-600">Buat konten sekali, jadwalkan untuk sebulan penuh. Biarkan sistem kami
+                        mempostingnya secara otomatis saat Anda tidur.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div
+                    class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition duration-300 reveal delay-100">
+                    <div
+                        class="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600 text-2xl mb-6">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Analitik Mendalam</h3>
+                    <p class="text-slate-600">Lihat performa postingan Anda. Pahami audiens, jam terbaik posting, dan
+                        tingkatkan engagement secara data-driven.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div
+                    class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition duration-300 reveal delay-200">
+                    <div
+                        class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center text-green-600 text-2xl mb-6">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Pembayaran Lokal</h3>
+                    <p class="text-slate-600">Tidak punya kartu kredit dollar? Tenang. Kami menerima pembayaran via
+                        QRIS, Transfer Bank, Gopay, OVO, dan Dana.</p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div
+                    class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition duration-300 reveal">
+                    <div
+                        class="w-14 h-14 bg-orange-100 rounded-xl flex items-center justify-center text-orange-600 text-2xl mb-6">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Kolaborasi Tim</h3>
+                    <p class="text-slate-600">Undang tim Anda untuk mengelola akun klien. Atur hak akses dan workflow
+                        persetujuan (approval) sebelum posting.</p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div
+                    class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition duration-300 reveal delay-100">
+                    <div
+                        class="w-14 h-14 bg-pink-100 rounded-xl flex items-center justify-center text-pink-600 text-2xl mb-6">
+                        <i class="fas fa-photo-video"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Media Library</h3>
+                    <p class="text-slate-600">Simpan aset gambar dan video Anda di cloud kami. Gunakan kembali kapan
+                        saja tanpa perlu upload ulang.</p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div
+                    class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition duration-300 reveal delay-200">
+                    <div
+                        class="w-14 h-14 bg-teal-100 rounded-xl flex items-center justify-center text-teal-600 text-2xl mb-6">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">AI Assistant (Coming Soon)</h3>
+                    <p class="text-slate-600">Kehabisan ide caption? Generate caption menarik dalam hitungan detik
+                        menggunakan bantuan AI yang terintegrasi.</p>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="harga" class="py-24 relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6 text-center relative z-10">
-      <h2 class="text-4xl font-extrabold mb-4 active-lang" lang-content="id">Pilih Rencana Anda</h2>
-      <h2 class="text-4xl font-extrabold mb-4" lang-content="en">Choose Your Plan</h2>
-
-      <div class="billing-toggle">
-        <button onclick="setBilling('monthly')" id="btn-monthly" class="toggle-btn active">
-          <span lang-content="id" class="active-lang">Bulanan</span>
-          <span lang-content="en">Monthly</span>
-        </button>
-        <button onclick="setBilling('yearly')" id="btn-yearly" class="toggle-btn inactive">
-          <span lang-content="id" class="active-lang">Tahunan</span>
-          <span lang-content="en">Yearly</span>
-          <span class="ml-1 text-[10px] bg-green-100 text-green-600 px-2 py-0.5 rounded-full">-20%</span>
-        </button>
-      </div>
-
-      <div class="pricing-grid">
-        <div
-          class="lg:col-span-2 glass-card p-8 rounded-[2rem] flex flex-col hover:border-white/60 transition-all duration-300 group">
-          <h3 class="text-lg font-bold text-slate-400 mb-2 uppercase tracking-widest active-lang" lang-content="id">Gratis</h3>
-          <h3 class="text-lg font-bold text-slate-400 mb-2 uppercase tracking-widest" lang-content="en">Free</h3>
-          <div class="text-4xl font-extrabold mb-4 price-val" data-monthly="Rp 0" data-yearly="Rp 0">Rp 0</div>
-          <p class="text-sm text-slate-500 mb-6 active-lang" lang-content="id">Untuk mencoba fitur dasar.
-          </p>
-          <p class="text-sm text-slate-500 mb-6" lang-content="en">To try out basic features.</p>
-          <ul class="text-sm text-left space-y-3 mb-8 text-slate-600 flex-grow">
-            <li>✅ 1 User</li>
-            <li>✅ 3 Social Accounts</li>
-            <li>✅ Basic Analytics</li>
-            <li>✅ Storage 300MB</li>
-          </ul>
-          <button class="w-full py-3 rounded-xl border border-slate-200 font-bold hover:bg-slate-50 transition">Join
-            Free</button>
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-24 bg-white relative overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="lg:w-1/2 reveal">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6">Mulai dalam 3 Langkah Mudah</h2>
+                    <div class="space-y-8">
+                        <div class="flex gap-4">
+                            <div
+                                class="w-10 h-10 rounded-full bg-brand-100 text-brand-600 font-bold flex items-center justify-center shrink-0">
+                                1</div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2">Daftar Akun</h4>
+                                <p class="text-slate-600">Pilih paket yang sesuai dan selesaikan pembayaran menggunakan
+                                    QRIS atau Transfer Bank instan.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div
+                                class="w-10 h-10 rounded-full bg-brand-100 text-brand-600 font-bold flex items-center justify-center shrink-0">
+                                2</div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2">Hubungkan Sosmed</h4>
+                                <p class="text-slate-600">Koneksikan akun Instagram, Facebook, atau TikTok Anda hanya
+                                    dengan sekali login aman.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div
+                                class="w-10 h-10 rounded-full bg-brand-100 text-brand-600 font-bold flex items-center justify-center shrink-0">
+                                3</div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2">Mulai Posting</h4>
+                                <p class="text-slate-600">Upload konten, tulis caption, dan pilih tanggal tayang.
+                                    Selesai!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 reveal delay-200">
+                    <!-- Interactive Elements Visual -->
+                    <div class="relative">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-r from-brand-500 to-accent-500 rounded-2xl transform rotate-3 opacity-20">
+                        </div>
+                        <div class="bg-slate-900 text-white p-8 rounded-2xl relative shadow-2xl">
+                            <div class="flex items-center gap-2 mb-6 border-b border-slate-700 pb-4">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                                <span class="ml-auto text-xs text-slate-400">Payment Gateway</span>
+                            </div>
+                            <div class="space-y-4">
+                                <div
+                                    class="flex items-center justify-between p-4 bg-slate-800 rounded-lg border border-slate-700">
+                                    <div class="flex items-center gap-3">
+                                        <i class="fas fa-qrcode text-2xl text-white"></i>
+                                        <div>
+                                            <p class="font-bold">QRIS (Gopay/OVO/Dana)</p>
+                                            <p class="text-xs text-slate-400">Instant Verification</p>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="w-6 h-6 rounded-full border-2 border-brand-500 flex items-center justify-center">
+                                        <div class="w-3 h-3 bg-brand-500 rounded-full"></div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex items-center justify-between p-4 bg-slate-800 rounded-lg border border-slate-700 opacity-50">
+                                    <div class="flex items-center gap-3">
+                                        <i class="fas fa-university text-2xl text-white"></i>
+                                        <div>
+                                            <p class="font-bold">Virtual Account</p>
+                                            <p class="text-xs text-slate-400">BCA, Mandiri, BNI, BRI</p>
+                                        </div>
+                                    </div>
+                                    <div class="w-6 h-6 rounded-full border-2 border-slate-600"></div>
+                                </div>
+                                <button
+                                    class="w-full py-3 bg-brand-600 hover:bg-brand-500 rounded-lg font-bold mt-4 transition">
+                                    Bayar Sekarang
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div
-          class="lg:col-span-2 glass-card p-8 rounded-[2rem] flex flex-col hover:border-white/60 transition-all duration-300">
-          <h3 class="text-lg font-bold text-blue-400 mb-2 uppercase tracking-widest">Basic</h3>
-          <div class="text-4xl font-extrabold text-slate-800 mb-1 price-val" data-monthly="Rp 75.000"
-            data-yearly="Rp 720.000">Rp
-            75.000</div>
-          <div class="text-xs text-slate-400 mb-4 billing-label">/bulan</div>
-          <p class="text-sm text-slate-500 mb-6 active-lang" lang-content="id">Sangat pas untuk kreator
-            solo.</p>
-          <p class="text-sm text-slate-500 mb-6" lang-content="en">Perfect for solo creators.</p>
-          <ul class="text-sm text-left space-y-3 mb-8 text-slate-600 flex-grow">
-            <li>✅ 2 User</li>
-            <li>✅ 10 Social Accounts</li>
-            <li>✅ Scheduled Posts</li>
-            <li>✅ Storage 500MB</li>
-          </ul>
-          <button
-            class="w-full py-3 rounded-xl border border-blue-100 text-blue-600 font-bold hover:bg-blue-50 transition">Get
-            Basic</button>
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-24 bg-slate-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Harga Terjangkau, Fitur Memukau</h2>
+                <p class="text-lg text-slate-600">Pilih paket sesuai kebutuhan bisnis Anda. Bisa upgrade kapan saja.</p>
+
+                <!-- Toggle Monthly/Yearly (Visual Only for MVP) -->
+                <div class="mt-8 inline-flex bg-white p-1 rounded-full border border-slate-200 shadow-sm relative">
+                    <button
+                        class="px-6 py-2 rounded-full bg-slate-900 text-white text-sm font-bold shadow-md">Bulanan</button>
+                    <button class="px-6 py-2 rounded-full text-slate-600 text-sm font-bold hover:text-slate-900">Tahunan
+                        <span class="text-green-500 text-xs ml-1">-20%</span></button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-center">
+
+                <!-- Starter Plan -->
+                <div
+                    class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl transition relative reveal">
+                    <h3 class="text-xl font-bold text-slate-900">Starter</h3>
+                    <p class="text-sm text-slate-500 mb-6">Untuk personal branding.</p>
+                    <div class="flex items-baseline mb-6">
+                        <span class="text-3xl font-bold">Rp</span>
+                        <span class="text-5xl font-extrabold text-slate-900 tracking-tight">99rb</span>
+                        <span class="text-slate-500 ml-1">/bln</span>
+                    </div>
+                    <a href="#"
+                        class="block w-full py-3 px-6 bg-slate-100 text-slate-900 text-center rounded-xl font-bold hover:bg-slate-200 transition mb-8">Pilih
+                        Paket</a>
+                    <ul class="space-y-4 text-slate-600 text-sm">
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-green-500"></i> 3 Akun Sosmed
+                        </li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-green-500"></i> Unlimited
+                            Postingan</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-green-500"></i> Analitik Dasar
+                        </li>
+                        <li class="flex items-center gap-3 opacity-50"><i class="fas fa-times text-slate-300"></i> Tanpa
+                            Kolaborasi Tim</li>
+                    </ul>
+                </div>
+
+                <!-- Pro Plan (Highlighted) -->
+                <div
+                    class="bg-slate-900 p-8 rounded-2xl shadow-2xl border-2 border-brand-500 transform md:-translate-y-4 relative reveal delay-100">
+                    <div
+                        class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-brand-500 text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wide shadow-lg">
+                        Paling Laris
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Pro Business</h3>
+                    <p class="text-sm text-slate-400 mb-6">Untuk UMKM berkembang.</p>
+                    <div class="flex items-baseline mb-6 text-white">
+                        <span class="text-3xl font-bold">Rp</span>
+                        <span class="text-5xl font-extrabold tracking-tight">199rb</span>
+                        <span class="text-slate-400 ml-1">/bln</span>
+                    </div>
+                    <a href="#"
+                        class="block w-full py-3 px-6 bg-brand-600 text-white text-center rounded-xl font-bold hover:bg-brand-700 transition mb-8 shadow-lg shadow-brand-500/30">Mulai
+                        Sekarang</a>
+                    <ul class="space-y-4 text-slate-300 text-sm">
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-brand-400"></i> 10 Akun Sosmed
+                        </li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-brand-400"></i> Unlimited
+                            Postingan</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-brand-400"></i> 2 Anggota Tim
+                        </li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-brand-400"></i> Analitik Lengkap
+                        </li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-brand-400"></i> Prioritas
+                            Support</li>
+                    </ul>
+                </div>
+
+                <!-- Agency Plan -->
+                <div
+                    class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl transition relative reveal delay-200">
+                    <h3 class="text-xl font-bold text-slate-900">Agency</h3>
+                    <p class="text-sm text-slate-500 mb-6">Untuk Agensi Digital.</p>
+                    <div class="flex items-baseline mb-6">
+                        <span class="text-3xl font-bold">Rp</span>
+                        <span class="text-5xl font-extrabold text-slate-900 tracking-tight">499rb</span>
+                        <span class="text-slate-500 ml-1">/bln</span>
+                    </div>
+                    <a href="#"
+                        class="block w-full py-3 px-6 bg-slate-100 text-slate-900 text-center rounded-xl font-bold hover:bg-slate-200 transition mb-8">Pilih
+                        Paket</a>
+                    <ul class="space-y-4 text-slate-600 text-sm">
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-green-500"></i> Unlimited Akun
+                            Sosmed</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-green-500"></i> Unlimited
+                            Anggota Tim</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-green-500"></i> White-label
+                            Report</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-green-500"></i> Dedicated
+                            Manager</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Payment Logos -->
+            <div class="mt-16 text-center">
+                <p class="text-sm text-slate-400 mb-4">Pembayaran Aman Didukung Oleh</p>
+                <div class="flex justify-center gap-6 opacity-60 grayscale hover:grayscale-0 transition duration-300">
+                    <!-- Simple Text placeholders for logos as per instruction to not use external images -->
+                    <span class="font-bold text-slate-600 text-xl tracking-tighter">XENDIT</span>
+                    <span class="font-bold text-slate-600 text-xl tracking-tighter">MIDTRANS</span>
+                    <span class="font-bold text-slate-600 text-xl tracking-tighter">QRIS</span>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div
-          class="lg:col-span-2 glass-card-dark p-8 rounded-[2rem] text-white shadow-2xl relative z-10 flex flex-col transform lg:scale-105 border-indigo-500/30">
-          <div
-            class="absolute -top-4 left-1/2 -translate-x-1/2 bg-blue-600 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">
-            Paling Populer</div>
-          <h3 class="text-lg font-bold text-blue-400 mb-2 uppercase tracking-widest">Pro</h3>
-          <div class="text-4xl font-extrabold mb-1 price-val" data-monthly="Rp 149.000" data-yearly="Rp 1.392.000">
-            Rp 149.000</div>
-          <div class="text-xs text-slate-400 mb-4 billing-label">/bulan</div>
-          <p class="text-sm text-slate-400 mb-6 active-lang" lang-content="id">Untuk bisnis profesional.
-          </p>
-          <p class="text-sm text-slate-400 mb-6" lang-content="en">For professional businesses.</p>
-          <ul class="text-sm text-left space-y-3 mb-8 text-slate-200 flex-grow">
-            <li>✅ 3 Users</li>
-            <li>✅ 30 Social Accounts</li>
-            <li>✅ AI Content Assistant</li>
-          </ul>
-          <button class="w-full bg-blue-600 py-3 rounded-xl font-bold hover:bg-blue-700 transition">Go
-            Pro</button>
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white pt-20 pb-10">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-1">
+                    <a href="#" class="flex items-center gap-2 mb-6">
+                        <div class="w-8 h-8 bg-brand-500 rounded flex items-center justify-center font-bold">M</div>
+                        <span class="text-xl font-bold">MaticPost</span>
+                    </a>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Membantu UMKM Indonesia mengelola media sosial lebih efisien, hemat, dan otomatis.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-6 text-slate-200">Produk</h4>
+                    <ul class="space-y-4 text-slate-400 text-sm">
+                        <li><a href="#" class="hover:text-brand-400 transition">Fitur</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition">Harga</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition">Roadmap</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-6 text-slate-200">Legal</h4>
+                    <ul class="space-y-4 text-slate-400 text-sm">
+                        <li><a href="#" class="hover:text-brand-400 transition">Kebijakan Privasi</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition">Syarat & Ketentuan</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition">Refund Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-6 text-slate-200">Hubungi Kami</h4>
+                    <ul class="space-y-4 text-slate-400 text-sm">
+                        <li><a href="mailto:support@maticpost.com" class="hover:text-brand-400 transition"><i
+                                    class="fas fa-envelope mr-2"></i> support@maticpost.com</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition"><i class="fab fa-whatsapp mr-2"></i> +62
+                                812-3456-7890</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-slate-500 text-sm">© 2024 MaticPost Indonesia. All rights reserved.</p>
+                <div class="flex gap-4">
+                    <a href="#"
+                        class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-brand-600 hover:text-white transition"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="#"
+                        class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-brand-600 hover:text-white transition"><i
+                            class="fab fa-facebook"></i></a>
+                    <a href="#"
+                        class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-brand-600 hover:text-white transition"><i
+                            class="fab fa-twitter"></i></a>
+                </div>
+            </div>
         </div>
+    </footer>
 
-        <div
-          class="lg:col-start-2 lg:col-span-2 glass-card p-8 rounded-[2rem] flex flex-col hover:border-white/60 transition-all duration-300 mt-6 lg:mt-4">
-          <h3 class="text-lg font-bold text-violet-500 mb-2 uppercase tracking-widest">Pro+</h3>
-          <div class="text-4xl font-extrabold mb-1 price-val" data-monthly="Rp 280.000" data-yearly="Rp 2.668.000">
-            Rp 280.000</div>
-          <div class="text-xs text-slate-400 mb-4 billing-label">/bulan</div>
-          <p class="text-sm text-slate-500 mb-6 active-lang" lang-content="id">Untuk tim & agensi kecil.
-          </p>
-          <p class="text-sm text-slate-500 mb-6" lang-content="en">For small teams & agencies.</p>
-          <ul class="text-sm text-left space-y-3 mb-8 text-slate-600 flex-grow">
-            <li>✅ 10 Users</li>
-            <li>✅ 100 Social Accounts</li>
-            <li>✅ Advanced AI Tools</li>
-          </ul>
-          <button
-            class="w-full py-3 rounded-xl border border-violet-100 text-violet-600 font-bold hover:bg-violet-50 transition">Get
-            Pro+</button>
-        </div>
+    <!-- Scripts -->
+    <script>
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
 
-        <div
-          class="lg:col-span-2 glass-card p-8 rounded-[2rem] flex flex-col hover:border-white/60 transition-all duration-300 mt-6 lg:mt-4">
-          <h3 class="text-lg font-bold text-slate-900 mb-2 uppercase tracking-widest">Advanced</h3>
-          <div class="text-4xl font-extrabold mb-1 price-val" data-monthly="Rp 1.500.000" data-yearly="Rp 14.400.000">Rp
-            1.500.000</div>
-          <div class="text-xs text-slate-400 mb-4 billing-label">/bulan</div>
-          <p class="text-sm text-slate-500 mb-6 active-lang" lang-content="id">Solusi skala perusahaan.
-          </p>
-          <p class="text-sm text-slate-500 mb-6" lang-content="en">Enterprise scale solution.</p>
-          <ul class="text-sm text-left space-y-3 mb-8 text-slate-600 flex-grow">
-            <li>✅ Unlimited Users</li>
-            <li>✅ White Labeling</li>
-            <li>✅ 24/7 Priority Support</li>
-          </ul>
-          <button class="w-full py-3 rounded-xl bg-slate-900 text-white font-bold hover:bg-black transition">Contact
-            Sales</button>
-        </div>
-      </div>
-    </div>
-  </section>
+        // Scroll Animation Observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
 
-  <footer class="py-12 border-t border-slate-100 bg-white">
-    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-      <div class="flex items-center gap-2">
-        <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">
-          M</div>
-        <span class="text-lg font-bold">MaticPost</span>
-      </div>
-      <p class="text-slate-400 text-sm">© 2026 MaticPost. All rights reserved.</p>
-    </div>
-  </footer>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, observerOptions);
 
- 
-<!-- Banner Cookie -->
-<div id="cookie-banner" class="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 shadow-lg hidden">
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
 
-  <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
-
-    <p class="text-sm text-slate-600">
-      Website ini menggunakan cookie untuk meningkatkan pengalaman pengguna.
-      Dengan melanjutkan penggunaan situs ini, Anda menyetujui penggunaan cookie kami.
-      <a href="/privacy-policy.html" class="text-blue-600 underline hover:text-blue-700">
-        Pelajari kebijakan cookie
-      </a>.
-    </p>
-
-    <div class="flex gap-3">
-      <button id="cookie-reject"
-        class="px-4 py-2 rounded-lg bg-slate-200 text-slate-700 font-semibold hover:bg-slate-300 transition">
-        Tolak
-      </button>
-
-      <button id="cookie-accept"
-        class="px-4 py-2 rounded-lg bg-green-600 text-white font-semibold hover:bg-green-700 transition">
-        Terima
-      </button>
-    </div>
-
-  </div>
-</div>
-
-<script src="/assets/js/main.js" defer></script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.replace('bg-transparent', 'bg-white/80');
+            } else {
+                navbar.classList.remove('shadow-md');
+            }
+        });
+    </script>
 </body>
 
 </html>

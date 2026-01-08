@@ -1,110 +1,90 @@
+document.addEventListener('DOMContentLoaded', () => {
 
-AOS.init({
-    duration: 1000,
-    once: true,
-    offset: 100
-});
-
-
-
-// Set Default Language
-window.onload = () => changeLang('id');
-
-function changeLang(lang) {
-    const allContent = document.querySelectorAll('[lang-content]');
-    const btnId = document.getElementById('btn-id');
-    const btnEn = document.getElementById('btn-en');
-    const navLinks = document.querySelectorAll('[data-id]');
-
-    // Switch content display
-    allContent.forEach(el => {
-        if (el.getAttribute('lang-content') === lang) {
-            el.classList.add('active-lang');
-        } else {
-            el.classList.remove('active-lang');
-        }
-    });
-
-    // Update Navigation Text
-    navLinks.forEach(link => {
-        const idLabels = {
-            'nav-features': 'Fitur',
-            'nav-why': 'Mengapa Kami',
-            'nav-tutorial': 'Tutorial',
-            'nav-pricing': 'Harga'
-        };
-        link.innerText = (lang === 'en') ? link.getAttribute('data-en') : idLabels[link.getAttribute('data-id')];
-    });
-
-    // Update Button Styling
-    if (lang === 'id') {
-        btnId.classList.add('bg-white', 'shadow-sm', 'text-blue-600', 'border', 'border-slate-200');
-        btnEn.classList.remove('bg-white', 'shadow-sm', 'text-blue-600', 'border', 'border-slate-200');
-        btnEn.classList.add('text-slate-500');
-        document.documentElement.lang = "id";
-    } else {
-        btnEn.classList.add('bg-white', 'shadow-sm', 'text-blue-600', 'border', 'border-slate-200');
-        btnId.classList.remove('bg-white', 'shadow-sm', 'text-blue-600', 'border', 'border-slate-200');
-        btnId.classList.add('text-slate-500');
-        document.documentElement.lang = "en";
+    /* AOS */
+    if (window.AOS) {
+        AOS.init({ duration: 1000, once: true, offset: 100 });
     }
 
-    // Sync Billing Labels with current language
-    const isActiveYearly = document.getElementById('btn-yearly').classList.contains('active');
-    setBilling(isActiveYearly ? 'yearly' : 'monthly');
-}
+    /* LANGUAGE */
+    const langButtons = document.querySelectorAll('[data-lang-btn]');
+    const langContents = document.querySelectorAll('[lang-content]');
+    const navLinks = document.querySelectorAll('.nav-link');
 
-function setBilling(type) {
-    const btnMonthly = document.getElementById('btn-monthly');
-    const btnYearly = document.getElementById('btn-yearly');
+    function changeLang(lang) {
+        langContents.forEach(el => {
+            el.classList.toggle('active-lang', el.getAttribute('lang-content') === lang);
+        });
+
+        navLinks.forEach(link => {
+            link.innerText = lang === 'en' ? link.dataset.en : link.dataset.idLabel;
+        });
+
+        langButtons.forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.langBtn === lang);
+        });
+
+        document.documentElement.lang = lang;
+        localStorage.setItem('site_lang', lang);
+        syncBillingLabel();
+    }
+
+    langButtons.forEach(btn => {
+        btn.addEventListener('click', () => changeLang(btn.dataset.langBtn));
+    });
+
+    /* BILLING */
+    const billingButtons = document.querySelectorAll('[data-billing]');
     const prices = document.querySelectorAll('.price-val');
     const labels = document.querySelectorAll('.billing-label');
-    const currentLang = document.documentElement.lang;
 
-    if (type === 'monthly') {
-        btnMonthly.classList.add('active');
-        btnMonthly.classList.remove('inactive');
-        btnYearly.classList.add('inactive');
-        btnYearly.classList.remove('active');
+    function setBilling(type) {
+        billingButtons.forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.billing === type);
+            btn.classList.toggle('inactive', btn.dataset.billing !== type);
+        });
 
-        prices.forEach(p => p.innerText = p.getAttribute('data-monthly'));
-        labels.forEach(l => l.innerText = currentLang === 'id' ? '/bulan' : '/month');
-    } else {
-        btnYearly.classList.add('active');
-        btnYearly.classList.remove('inactive');
-        btnMonthly.classList.add('inactive');
-        btnMonthly.classList.remove('active');
-
-        prices.forEach(p => p.innerText = p.getAttribute('data-yearly'));
-        labels.forEach(l => l.innerText = currentLang === 'id' ? '/tahun (dibayar tahunan)' : '/year (billed annually)');
+        prices.forEach(p => p.innerText = p.dataset[type]);
+        localStorage.setItem('billing_type', type);
+        syncBillingLabel();
     }
-}
 
+    function syncBillingLabel() {
+        const lang = document.documentElement.lang;
+        const billing = localStorage.getItem('billing_type') || 'monthly';
 
+        labels.forEach(label => {
+            label.innerText =
+                billing === 'monthly'
+                    ? (lang === 'id' ? '/bulan' : '/month')
+                    : (lang === 'id' ? '/tahun (dibayar tahunan)' : '/year (billed annually)');
+        });
+    }
 
-document.addEventListener('DOMContentLoaded', function () {
+    billingButtons.forEach(btn => {
+        btn.addEventListener('click', () => setBilling(btn.dataset.billing));
+    });
+
+    /* COOKIE */
     const banner = document.getElementById('cookie-banner');
-    const btnAccept = document.getElementById('cookie-accept');
-    const btnReject = document.getElementById('cookie-reject');
+    const accept = document.getElementById('cookie-accept');
+    const reject = document.getElementById('cookie-reject');
 
-    if (!banner) return;
-
-    // Cek status cookie
-    const consent = localStorage.getItem('cookie_consent');
-    if (!consent) {
+    if (!localStorage.getItem('cookie_consent')) {
         banner.classList.remove('hidden');
     }
 
-    // Terima cookie
-    btnAccept.addEventListener('click', function () {
+    accept.onclick = () => {
         localStorage.setItem('cookie_consent', 'accepted');
         banner.classList.add('hidden');
-    });
+    };
 
-    // Tolak cookie
-    btnReject.addEventListener('click', function () {
+    reject.onclick = () => {
         localStorage.setItem('cookie_consent', 'rejected');
         banner.classList.add('hidden');
-    });
-});
+    };
 
+    /* INIT */
+    changeLang(localStorage.getItem('site_lang') || 'id');
+    setBilling(localStorage.getItem('billing_type') || 'monthly');
+
+});
