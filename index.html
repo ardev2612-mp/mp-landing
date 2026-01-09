@@ -7,6 +7,11 @@
     <title>MaticPost - Kelola Sosmed Jadi Otomatis</title>
     <meta name="description" content="Platform manajemen sosial media #1 di Indonesia dengan pembayaran lokal.">
 
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="/assets/img/logo-1.png">
+    <!-- Jika belum punya file gambar, browser akan mengabaikan atau pakai default -->
+
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -490,110 +495,235 @@
             <div class="text-center max-w-3xl mx-auto mb-16 reveal">
                 <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Harga Terjangkau, Fitur Memukau</h2>
                 <p class="text-lg text-slate-600">Pilih paket sesuai kebutuhan bisnis Anda. Bisa upgrade kapan saja.</p>
-
-                <!-- Toggle Monthly/Yearly (Visual Only for MVP) -->
+    
+                <!-- Toggle Monthly/Yearly -->
                 <div class="mt-8 inline-flex bg-white p-1 rounded-full border border-slate-200 shadow-sm relative">
-                    <button
-                        class="px-6 py-2 rounded-full bg-slate-900 text-white text-sm font-bold shadow-md">Bulanan</button>
-                    <button class="px-6 py-2 rounded-full text-slate-600 text-sm font-bold hover:text-slate-900">Tahunan
-                        <span class="text-green-500 text-xs ml-1">-20%</span></button>
+                    <button id="btn-monthly" onclick="togglePricing('monthly')"
+                        class="px-6 py-2 rounded-full bg-slate-900 text-white text-sm font-bold shadow-md transition-all">Bulanan</button>
+                    <button id="btn-yearly" onclick="togglePricing('yearly')"
+                        class="px-6 py-2 rounded-full text-slate-600 text-sm font-bold hover:text-slate-900 transition-all">Tahunan
+                        <span class="text-green-500 text-xs ml-1">-Hemat!</span></button>
                 </div>
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-center">
-
-                <!-- Starter Plan -->
+    
+            <!-- Grid Container for 5 Plans -->
+            <div class="flex flex-wrap justify-center gap-6">
+    
+                <!-- 1. FREE PLAN -->
                 <div
-                    class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl transition relative reveal">
-                    <h3 class="text-xl font-bold text-slate-900">Starter</h3>
-                    <p class="text-sm text-slate-500 mb-6">Untuk personal branding.</p>
+                    class="w-full md:w-[45%] lg:w-[30%] bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg transition relative reveal">
+                    <h3 class="text-lg font-bold text-slate-900">Free</h3>
+                    <p class="text-xs text-slate-500 mb-4">Untuk mencoba fitur.</p>
                     <div class="flex items-baseline mb-6">
-                        <span class="text-3xl font-bold">Rp</span>
-                        <span class="text-5xl font-extrabold text-slate-900 tracking-tight">99rb</span>
-                        <span class="text-slate-500 ml-1">/bln</span>
+                        <span class="text-2xl font-bold">Rp</span>
+                        <span class="text-4xl font-extrabold text-slate-900 tracking-tight">0</span>
                     </div>
                     <a href="#"
-                        class="block w-full py-3 px-6 bg-slate-100 text-slate-900 text-center rounded-xl font-bold hover:bg-slate-200 transition mb-8">Pilih
-                        Paket</a>
-                    <ul class="space-y-4 text-slate-600 text-sm">
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-green-500"></i> 3 Akun Sosmed
-                        </li>
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-green-500"></i> Unlimited
-                            Postingan</li>
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-green-500"></i> Analitik Dasar
-                        </li>
-                        <li class="flex items-center gap-3 opacity-50"><i class="fas fa-times text-slate-300"></i> Tanpa
-                            Kolaborasi Tim</li>
+                        class="block w-full py-2 px-4 bg-slate-100 text-slate-900 text-center rounded-lg font-bold hover:bg-slate-200 transition mb-6 text-sm">Daftar
+                        Gratis</a>
+                    <ul class="space-y-3 text-slate-600 text-sm">
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> 1 Akun
+                            Sosmed</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> 7 Postingan
+                            Total</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> 300 MB
+                            Storage</li>
                     </ul>
                 </div>
-
-                <!-- Pro Plan (Highlighted) -->
+    
+                <!-- 2. BASIC PLAN -->
                 <div
-                    class="bg-slate-900 p-8 rounded-2xl shadow-2xl border-2 border-brand-500 transform md:-translate-y-4 relative reveal delay-100">
-                    <div
-                        class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-brand-500 text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wide shadow-lg">
-                        Paling Laris
+                    class="w-full md:w-[45%] lg:w-[30%] bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg transition relative reveal delay-100">
+                    <h3 class="text-lg font-bold text-slate-900">Basic</h3>
+                    <p class="text-xs text-slate-500 mb-4">Untuk pemula.</p>
+                    <div class="flex items-baseline mb-6">
+                        <span class="text-2xl font-bold">Rp</span>
+                        <span class="text-4xl font-extrabold text-slate-900 tracking-tight price-basic">75rb</span>
+                        <span class="text-slate-500 ml-1 period-text">/bln</span>
                     </div>
-                    <h3 class="text-xl font-bold text-white">Pro Business</h3>
-                    <p class="text-sm text-slate-400 mb-6">Untuk UMKM berkembang.</p>
+                    <a href="#"
+                        class="block w-full py-2 px-4 bg-brand-50 text-brand-700 text-center rounded-lg font-bold hover:bg-brand-100 transition mb-6 text-sm">Pilih
+                        Basic</a>
+                    <ul class="space-y-3 text-slate-600 text-sm">
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> 2 Akun
+                            Sosmed</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i>
+                            <strong>Unlimited</strong> Postingan</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> 2 GB Storage
+                        </li>
+                    </ul>
+                </div>
+    
+                <!-- 3. PRO PLAN -->
+                <div
+                    class="w-full md:w-[45%] lg:w-[30%] bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg transition relative reveal delay-200">
+                    <h3 class="text-lg font-bold text-slate-900">Pro</h3>
+                    <p class="text-xs text-slate-500 mb-4">Untuk UMKM serius.</p>
+                    <div class="flex items-baseline mb-6">
+                        <span class="text-2xl font-bold">Rp</span>
+                        <span class="text-4xl font-extrabold text-slate-900 tracking-tight price-pro">145rb</span>
+                        <span class="text-slate-500 ml-1 period-text">/bln</span>
+                    </div>
+                    <a href="#"
+                        class="block w-full py-2 px-4 bg-brand-50 text-brand-700 text-center rounded-lg font-bold hover:bg-brand-100 transition mb-6 text-sm">Pilih
+                        Pro</a>
+                    <ul class="space-y-3 text-slate-600 text-sm">
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> 5 Akun
+                            Sosmed</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i>
+                            <strong>Unlimited</strong> Postingan</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> 20 GB
+                            Storage</li>
+                    </ul>
+                </div>
+    
+                <!-- 4. PRO+ PLAN (HIGHLIGHTED) -->
+                <div
+                    class="w-full md:w-[45%] lg:w-[30%] bg-slate-900 p-8 rounded-2xl shadow-2xl border-2 border-brand-500 transform lg:-translate-y-4 relative reveal delay-300 z-10 order-first lg:order-none">
+                    <div
+                        class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-brand-500 text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wide shadow-lg whitespace-nowrap">
+                        Rekomendasi
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Pro+</h3>
+                    <p class="text-sm text-slate-400 mb-6">Untuk Bisnis Berkembang.</p>
                     <div class="flex items-baseline mb-6 text-white">
-                        <span class="text-3xl font-bold">Rp</span>
-                        <span class="text-5xl font-extrabold tracking-tight">199rb</span>
-                        <span class="text-slate-400 ml-1">/bln</span>
+                        <span class="text-2xl font-bold">Rp</span>
+                        <span class="text-5xl font-extrabold tracking-tight price-proplus">280rb</span>
+                        <span class="text-slate-400 ml-1 period-text">/bln</span>
                     </div>
                     <a href="#"
                         class="block w-full py-3 px-6 bg-brand-600 text-white text-center rounded-xl font-bold hover:bg-brand-700 transition mb-8 shadow-lg shadow-brand-500/30">Mulai
-                        Sekarang</a>
+                        Pro+</a>
                     <ul class="space-y-4 text-slate-300 text-sm">
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-brand-400"></i> 10 Akun Sosmed
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-brand-400"></i> 10 Akun Sosmed</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-brand-400"></i>
+                            <strong>Unlimited</strong> Postingan</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-brand-400"></i> 25 GB Storage</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-brand-400"></i> Prioritas Support
                         </li>
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-brand-400"></i> Unlimited
-                            Postingan</li>
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-brand-400"></i> 2 Anggota Tim
-                        </li>
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-brand-400"></i> Analitik Lengkap
-                        </li>
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-brand-400"></i> Prioritas
-                            Support</li>
                     </ul>
                 </div>
-
-                <!-- Agency Plan -->
+    
+                <!-- 5. ADVANCED PLAN -->
                 <div
-                    class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl transition relative reveal delay-200">
-                    <h3 class="text-xl font-bold text-slate-900">Agency</h3>
-                    <p class="text-sm text-slate-500 mb-6">Untuk Agensi Digital.</p>
+                    class="w-full md:w-[45%] lg:w-[30%] bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg transition relative reveal delay-200">
+                    <h3 class="text-lg font-bold text-slate-900">Advanced</h3>
+                    <p class="text-xs text-slate-500 mb-4">Untuk Agensi Besar.</p>
                     <div class="flex items-baseline mb-6">
-                        <span class="text-3xl font-bold">Rp</span>
-                        <span class="text-5xl font-extrabold text-slate-900 tracking-tight">499rb</span>
-                        <span class="text-slate-500 ml-1">/bln</span>
+                        <span class="text-2xl font-bold">Rp</span>
+                        <span class="text-4xl font-extrabold text-slate-900 tracking-tight price-advanced">1.5jt</span>
+                        <span class="text-slate-500 ml-1 period-text">/bln</span>
                     </div>
                     <a href="#"
-                        class="block w-full py-3 px-6 bg-slate-100 text-slate-900 text-center rounded-xl font-bold hover:bg-slate-200 transition mb-8">Pilih
-                        Paket</a>
-                    <ul class="space-y-4 text-slate-600 text-sm">
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-green-500"></i> Unlimited Akun
+                        class="block w-full py-2 px-4 bg-brand-50 text-brand-700 text-center rounded-lg font-bold hover:bg-brand-100 transition mb-6 text-sm">Pilih
+                        Advanced</a>
+                    <ul class="space-y-3 text-slate-600 text-sm">
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> 25 Akun
                             Sosmed</li>
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-green-500"></i> Unlimited
-                            Anggota Tim</li>
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-green-500"></i> White-label
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i>
+                            <strong>Unlimited</strong> Postingan</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> 60 GB
+                            Storage</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> White-label
                             Report</li>
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-green-500"></i> Dedicated
-                            Manager</li>
                     </ul>
                 </div>
-
+    
             </div>
-
+    
             <!-- Payment Logos -->
             <div class="mt-16 text-center">
                 <p class="text-sm text-slate-400 mb-4">Pembayaran Aman Didukung Oleh</p>
                 <div class="flex justify-center gap-6 opacity-60 grayscale hover:grayscale-0 transition duration-300">
-                    <!-- Simple Text placeholders for logos as per instruction to not use external images -->
                     <span class="font-bold text-slate-600 text-xl tracking-tighter">XENDIT</span>
                     <span class="font-bold text-slate-600 text-xl tracking-tighter">MIDTRANS</span>
                     <span class="font-bold text-slate-600 text-xl tracking-tighter">QRIS</span>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-20 bg-white border-t border-slate-100">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Pertanyaan yang Sering Diajukan</h2>
+                <p class="text-slate-600">Punya pertanyaan? Kami punya jawabannya.</p>
+            </div>
+    
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <details class="group bg-slate-50 rounded-xl p-4 md:p-6 cursor-pointer reveal">
+                    <summary class="flex justify-between items-center font-bold text-slate-800 text-lg">
+                        Apa itu MaticPost?
+                        <span class="transform group-open:rotate-180 transition-transform duration-200">
+                            <i class="fas fa-chevron-down text-slate-400"></i>
+                        </span>
+                    </summary>
+                    <div class="mt-4 text-slate-600 leading-relaxed">
+                        MaticPost adalah platform manajemen sosial media yang memungkinkan Anda menjadwalkan postingan ke
+                        berbagai akun sosial media (Instagram, Facebook, TikTok, Twitter) sekaligus dari satu dashboard.
+                        Kami membantu Anda menghemat waktu dan meningkatkan konsistensi konten.
+                    </div>
+                </details>
+    
+                <!-- FAQ Item 2 -->
+                <details class="group bg-slate-50 rounded-xl p-4 md:p-6 cursor-pointer reveal delay-100">
+                    <summary class="flex justify-between items-center font-bold text-slate-800 text-lg">
+                        Apakah aman menghubungkan akun sosmed saya?
+                        <span class="transform group-open:rotate-180 transition-transform duration-200">
+                            <i class="fas fa-chevron-down text-slate-400"></i>
+                        </span>
+                    </summary>
+                    <div class="mt-4 text-slate-600 leading-relaxed">
+                        Sangat aman. Kami menggunakan API resmi dari masing-masing platform (Meta, Twitter, TikTok) dan
+                        tidak pernah menyimpan password akun sosial media Anda. Kami hanya menyimpan token akses terenkripsi
+                        yang diberikan oleh platform tersebut.
+                    </div>
+                </details>
+    
+                <!-- FAQ Item 3 -->
+                <details class="group bg-slate-50 rounded-xl p-4 md:p-6 cursor-pointer reveal delay-200">
+                    <summary class="flex justify-between items-center font-bold text-slate-800 text-lg">
+                        Apakah saya bisa mengganti paket sewaktu-waktu?
+                        <span class="transform group-open:rotate-180 transition-transform duration-200">
+                            <i class="fas fa-chevron-down text-slate-400"></i>
+                        </span>
+                    </summary>
+                    <div class="mt-4 text-slate-600 leading-relaxed">
+                        Tentu saja! Anda bisa upgrade (naik paket) atau downgrade (turun paket) kapan saja melalui menu
+                        Billing di dashboard Anda. Perubahan akan disesuaikan pada siklus penagihan berikutnya.
+                    </div>
+                </details>
+    
+                <!-- FAQ Item 4 -->
+                <details class="group bg-slate-50 rounded-xl p-4 md:p-6 cursor-pointer reveal">
+                    <summary class="flex justify-between items-center font-bold text-slate-800 text-lg">
+                        Metode pembayaran apa saja yang diterima?
+                        <span class="transform group-open:rotate-180 transition-transform duration-200">
+                            <i class="fas fa-chevron-down text-slate-400"></i>
+                        </span>
+                    </summary>
+                    <div class="mt-4 text-slate-600 leading-relaxed">
+                        Kami menerima berbagai metode pembayaran lokal Indonesia untuk memudahkan Anda, termasuk QRIS
+                        (Gopay, OVO, Dana), Virtual Account Bank (BCA, Mandiri, BNI, BRI), dan Kartu Kredit/Debit.
+                    </div>
+                </details>
+    
+                <!-- FAQ Item 5 -->
+                <details class="group bg-slate-50 rounded-xl p-4 md:p-6 cursor-pointer reveal delay-100">
+                    <summary class="flex justify-between items-center font-bold text-slate-800 text-lg">
+                        Apakah ada batasan jumlah postingan?
+                        <span class="transform group-open:rotate-180 transition-transform duration-200">
+                            <i class="fas fa-chevron-down text-slate-400"></i>
+                        </span>
+                    </summary>
+                    <div class="mt-4 text-slate-600 leading-relaxed">
+                        Untuk paket berbayar (Basic, Pro, Pro+, Advanced), jumlah postingan adalah
+                        <strong>Unlimited</strong> (Tidak terbatas). Namun, harap perhatikan kebijakan limit harian (rate
+                        limit) dari masing-masing sosial media (misalnya Instagram membatasi jumlah posting per jam untuk
+                        mencegah spam).
+                    </div>
+                </details>
             </div>
         </div>
     </section>
@@ -656,7 +786,7 @@
     </footer>
 
     <!-- Scripts -->
-    <script>
+    <!--<script>
         // Mobile Menu Toggle
         function toggleMenu() {
             const menu = document.getElementById('mobile-menu');
@@ -692,7 +822,47 @@
                 navbar.classList.remove('shadow-md');
             }
         });
-    </script>
+    </script>-->
+
+        <script>
+            // Data Harga
+            const pricingData = {
+                basic: { m: "75.000", y: "900.000" },
+                pro: { m: "145.000", y: "1.740.000" },
+                proplus: { m: "280.000", y: "3.360.000" },
+                advanced: { m: "1.500.000", y: "18.000.000" }
+            };
+
+            function togglePricing(type) {
+                const btnMonthly = document.getElementById('btn-monthly');
+                const btnYearly = document.getElementById('btn-yearly');
+                const periods = document.querySelectorAll('.period-text');
+
+                if (type === 'monthly') {
+                    btnMonthly.classList.add('bg-slate-900', 'text-white');
+                    btnYearly.classList.remove('bg-slate-900', 'text-white');
+                    document.querySelector('.price-basic').innerText = pricingData.basic.m;
+                    document.querySelector('.price-pro').innerText = pricingData.pro.m;
+                    document.querySelector('.price-proplus').innerText = pricingData.proplus.m;
+                    document.querySelector('.price-advanced').innerText = pricingData.advanced.m;
+                    periods.forEach(p => p.innerText = 'per bulan');
+                } else {
+                    btnYearly.classList.add('bg-slate-900', 'text-white');
+                    btnMonthly.classList.remove('bg-slate-900', 'text-white');
+                    document.querySelector('.price-basic').innerText = pricingData.basic.y;
+                    document.querySelector('.price-pro').innerText = pricingData.pro.y;
+                    document.querySelector('.price-proplus').innerText = pricingData.proplus.y;
+                    document.querySelector('.price-advanced').innerText = pricingData.advanced.y;
+                    periods.forEach(p => p.innerText = 'per tahun');
+                }
+            }
+
+            // Animation Observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+            });
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        </script>
 </body>
 
 </html>
