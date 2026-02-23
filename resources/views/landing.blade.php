@@ -372,12 +372,11 @@
                         class="block w-full py-2 px-4 bg-slate-100 text-slate-900 text-center rounded-lg font-bold hover:bg-slate-200 transition mb-6 text-sm">Daftar
                         Gratis</a>
                     <ul class="space-y-3 text-slate-600 text-sm">
-                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> 1 Akun
-                            Sosmed</li>
-                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> 7 Postingan
-                            Total</li>
-                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> 300 MB
-                            Storage</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> 1 Akun Sosmed (1 FB, 1 IG, 1 TikTok, 1 YT)</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> 7 Postingan Total</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> 300 MB Storage</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> Jadwal Posting</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> Analitik Dasar</li>
                     </ul>
                 </div>
     
@@ -395,12 +394,11 @@
                         class="block w-full py-2 px-4 bg-brand-50 text-brand-700 text-center rounded-lg font-bold hover:bg-brand-100 transition mb-6 text-sm">Pilih
                         Basic</a>
                     <ul class="space-y-3 text-slate-600 text-sm">
-                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> 2 Akun
-                            Sosmed</li>
-                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i>
-                            <strong>Unlimited</strong> Postingan</li>
-                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> 2 GB Storage
-                        </li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> 2 Akun Sosmed (2 FB, 2 IG, 2 TikTok, 2 YT)</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> <strong>Unlimited</strong> Postingan</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> 2 GB Storage</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> Jadwal Posting</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> Analitik Dasar</li>
                     </ul>
                 </div>
     
@@ -422,12 +420,11 @@
                         class="block w-full py-3 px-6 bg-brand-600 text-white text-center rounded-xl font-bold hover:bg-brand-700 transition mb-8 shadow-lg shadow-brand-500/30">Mulai
                         Pro</a>
                     <ul class="space-y-4 text-slate-300 text-sm">
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-green-500 text-xs"></i> 5 Akun
-                            Sosmed</li>
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-green-500 text-xs"></i>
-                            <strong>Unlimited</strong> Postingan</li>
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-green-500 text-xs"></i> 20 GB
-                            Storage</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-green-500 text-xs"></i> 5 Akun Sosmed (5 FB, 5 IG, 5 TikTok, 5 YT)</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-green-500 text-xs"></i> <strong>Unlimited</strong> Postingan</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-green-500 text-xs"></i> 20 GB Storage</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-green-500 text-xs"></i> Jadwal Posting</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-green-500 text-xs"></i> Analitik Dasar</li>
                     </ul>
                 </div>
     
@@ -445,12 +442,12 @@
                         class="block w-full py-2 px-4 bg-brand-50 text-brand-700 text-center rounded-lg font-bold hover:bg-brand-100 transition mb-6 text-sm">Pilih
                         Pro+</a>
                     <ul class="space-y-3 text-slate-600 text-sm">
-                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> 10 Akun Sosmed</li>
-                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i>
-                            <strong>Unlimited</strong> Postingan</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> 10 Akun Sosmed (10 FB, 10 IG, 10 TikTok, 10 YT)</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> <strong>Unlimited</strong> Postingan</li>
                         <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> 25 GB Storage</li>
-                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> Prioritas Support
-                        </li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> Prioritas Support</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> Jadwal Posting</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> Analitik Dasar</li>
                     </ul>
                 </div>
     
@@ -468,14 +465,12 @@
                         class="block w-full py-2 px-4 bg-brand-50 text-brand-700 text-center rounded-lg font-bold hover:bg-brand-100 transition mb-6 text-sm">Pilih
                         Advanced</a>
                     <ul class="space-y-3 text-slate-600 text-sm">
-                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> 25 Akun
-                            Sosmed</li>
-                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i>
-                            <strong>Unlimited</strong> Postingan</li>
-                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> 60 GB
-                            Storage</li>
-                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> White-label
-                            Report</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> 25 Akun Sosmed (25 FB, 25 IG, 25 TikTok, 25 YT)</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> <strong>Unlimited</strong> Postingan</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> 60 GB Storage</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> White-label Report</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> Jadwal Posting</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-xs"></i> Analitik Dasar</li>
                     </ul>
                 </div>
     
