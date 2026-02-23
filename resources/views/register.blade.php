@@ -34,7 +34,12 @@
                         class="absolute bottom-0 left-0 w-32 h-32 bg-accent-500 rounded-full blur-3xl opacity-20 -ml-16 -mb-16">
                     </div>
 
-                    <h3 id="summary-plan-title" class="text-2xl font-bold mb-4">...</h3>
+                    <h3 id="summary-plan-title" class="text-2xl font-bold mb-1">...</h3>
+                    <div id="summary-plan-price" class="flex items-baseline gap-1 mb-4">
+                        <span class="text-lg font-bold">Rp</span>
+                        <span id="price-amount" class="text-3xl font-extrabold text-white">0</span>
+                        <span id="price-period" class="text-slate-400 text-sm">/bulan</span>
+                    </div>
                     <p id="summary-plan-desc" class="text-slate-300 mb-8 leading-relaxed">...</p>
 
                     <div id="summary-plan-features" class="space-y-4 mb-8">
@@ -186,32 +191,39 @@
             const inputPlan = document.getElementById('input-plan');
 
             const summaryTitle = document.getElementById('summary-plan-title');
+            const summaryPrice = document.getElementById('summary-plan-price');
+            const priceAmount = document.getElementById('price-amount');
             const summaryDesc = document.getElementById('summary-plan-desc');
             const summaryFeatures = document.getElementById('summary-plan-features');
 
             const planData = {
                 'free': {
                     name: 'Free',
+                    price: '0',
                     desc: 'Untuk mencoba fitur.',
                     features: ['1 Akun Sosmed (1 Facebook, 1 Instagram, 1 TikTok, 1 Youtube)', '7 Postingan Total', '300 MB Storage', 'Jadwal Posting', 'Analitik Dasar']
                 },
                 'basic': {
                     name: 'Basic',
+                    price: '75.000',
                     desc: 'Untuk pemula.',
                     features: ['2 Akun Sosmed (2 Facebook, 2 Instagram, 2 TikTok, 2 Youtube)', 'Unlimited Postingan', '2 GB Storage', 'Jadwal Posting', 'Analitik Dasar']
                 },
                 'pro': {
                     name: 'Pro',
+                    price: '145.000',
                     desc: 'Untuk UMKM serius.',
                     features: ['5 Akun Sosmed (5 Facebook, 5 Instagram, 5 TikTok, 5 Youtube)', 'Unlimited Postingan', '20 GB Storage', 'Jadwal Posting', 'Analitik Dasar']
                 },
                 'proplus': {
                     name: 'Pro+',
+                    price: '280.000',
                     desc: 'Untuk Bisnis Berkembang.',
                     features: ['10 Akun Sosmed (10 Facebook, 10 Instagram, 10 TikTok, 10 Youtube)', 'Unlimited Postingan', '25 GB Storage', 'Prioritas Support', 'Jadwal Posting', 'Analitik Dasar']
                 },
                 'advanced': {
                     name: 'Advanced',
+                    price: '1.500.000',
                     desc: 'Untuk Agensi Besar.',
                     features: ['25 Akun Sosmed (25 Facebook, 25 Instagram, 25 TikTok, 25 Youtube)', 'Unlimited Postingan', '60 GB Storage', 'White-label Report', 'Jadwal Posting', 'Analitik Dasar']
                 }
@@ -229,6 +241,7 @@
 
                 // Update Sidebar
                 summaryTitle.textContent = `Paket ${data.name}`;
+                priceAmount.textContent = data.price;
                 summaryDesc.textContent = data.desc;
 
                 summaryFeatures.innerHTML = '';
