@@ -193,27 +193,27 @@
                 'free': {
                     name: 'Free',
                     desc: 'Untuk mencoba fitur.',
-                    features: ['1 Akun Sosmed', '7 Postingan Total', '300 MB Storage']
+                    features: ['1 Akun Sosmed (1 Facebook, 1 Instagram, 1 TikTok, 1 Youtube)', '7 Postingan Total', '300 MB Storage', 'Jadwal Posting', 'Analitik Dasar']
                 },
                 'basic': {
                     name: 'Basic',
                     desc: 'Untuk pemula.',
-                    features: ['2 Akun Sosmed', 'Unlimited Postingan', '2 GB Storage']
+                    features: ['2 Akun Sosmed (2 Facebook, 2 Instagram, 2 TikTok, 2 Youtube)', 'Unlimited Postingan', '2 GB Storage', 'Jadwal Posting', 'Analitik Dasar']
                 },
                 'pro': {
                     name: 'Pro',
                     desc: 'Untuk UMKM serius.',
-                    features: ['5 Akun Sosmed', 'Unlimited Postingan', '20 GB Storage']
+                    features: ['5 Akun Sosmed (5 Facebook, 5 Instagram, 5 TikTok, 5 Youtube)', 'Unlimited Postingan', '20 GB Storage', 'Jadwal Posting', 'Analitik Dasar']
                 },
                 'proplus': {
                     name: 'Pro+',
                     desc: 'Untuk Bisnis Berkembang.',
-                    features: ['10 Akun Sosmed', 'Unlimited Postingan', '25 GB Storage', 'Prioritas Support']
+                    features: ['10 Akun Sosmed (10 Facebook, 10 Instagram, 10 TikTok, 10 Youtube)', 'Unlimited Postingan', '25 GB Storage', 'Prioritas Support', 'Jadwal Posting', 'Analitik Dasar']
                 },
                 'advanced': {
                     name: 'Advanced',
                     desc: 'Untuk Agensi Besar.',
-                    features: ['25 Akun Sosmed', 'Unlimited Postingan', '60 GB Storage', 'White-label Report']
+                    features: ['25 Akun Sosmed (25 Facebook, 25 Instagram, 25 TikTok, 25 Youtube)', 'Unlimited Postingan', '60 GB Storage', 'White-label Report', 'Jadwal Posting', 'Analitik Dasar']
                 }
             };
 
