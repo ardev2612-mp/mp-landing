@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+  # ==========================================
+  # GANTI service 'landing-page' dengan ini:
+  # ==========================================
+  
+  # 1. PHP Application Container (Laravel)
+  landing-app:
+    build:
+      context: ./mp-landing  # Pastikan path ini sesuai lokasi folder project landing page Anda
+      dockerfile: Dockerfile
+    container_name: mp-landing-app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./mp-landing:/var/www  # Mount kode aplikasi ke /var/www
+    networks:
+      - default
+    depends_on:
+      - mysql
+      - redis
+
+  # 2. Web Server Container (Nginx) - Terhubung ke Traefik
+  landing-web:
+    image: nginx:alpine
+    container_name: mp-landing-web
+    restart: unless-stopped
+    ports:
+      - "8080:80" # Opsional: hanya untuk debug jika perlu akses langsung via IP:Port
+    volumes:
+      - ./mp-landing:/var/www
+      - ./mp-landing/nginx/conf.d/:/etc/nginx/conf.d/
+    depends_on:
+      - landing-app
+    networks:
+      - default
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.landing.rule=Host(`maticpost.com`)"
+      - "traefik.http.routers.landing.entrypoints=web,websecure"
+      - "traefik.http.routers.landing.tls=true"
+      - "traefik.http.routers.landing.tls.certresolver=mytlschallenge"

@@ -49,6 +49,12 @@ class PaymentController extends Controller
 
             if ($transactionStatus == 'capture' || $transactionStatus == 'settlement') {
                 if ($fraudStatus == 'accept' || $fraudStatus == null) {
+                    // Deactivate ALL other active subscriptions for this user
+                    Subscription::where('registration_id', $subscription->registration_id)
+                        ->where('id', '!=', $subscription->id)
+                        ->where('is_active', true)
+                        ->update(['is_active' => false]);
+
                     $subscription->update([
                         'payment_status' => 'success',
                         'is_active' => true,

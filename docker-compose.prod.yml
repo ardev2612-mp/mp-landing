@@ -1,0 +1,66 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mp-landing-app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - /var/www/vendor
+    env_file:
+      - .env
+    networks:
+      - mixpost_network
+      - landing_internal
+
+  web:
+    image: nginx:alpine
+    container_name: mp-landing-web
+    restart: unless-stopped
+    volumes:
+      - ./:/var/www
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    depends_on:
+      - app
+    labels:
+      - "traefik.enable=true"
+      # Ganti DOMAIN_LANDING dengan domain/subdomain Anda, contoh: landing.maticpost.com
+      - "traefik.http.routers.mp-landing.rule=Host(`${DOMAIN_LANDING}`)"
+      - "traefik.http.routers.mp-landing.entrypoints=websecure"
+      - "traefik.http.routers.mp-landing.tls=true"
+      - "traefik.http.routers.mp-landing.tls.certresolver=letsencrypt"
+      - "traefik.http.services.mp-landing.loadbalancer.server.port=80"
+      # Redirect HTTP ke HTTPS
+      - "traefik.http.routers.mp-landing-http.rule=Host(`${DOMAIN_LANDING}`)"
+      - "traefik.http.routers.mp-landing-http.entrypoints=web"
+      - "traefik.http.routers.mp-landing-http.middlewares=redirect-to-https"
+    networks:
+      - mixpost_network
+      - landing_internal
+
+  db:
+    image: mysql:8.0
+    container_name: mp-landing-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-landing_db}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-secret}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-secret}
+      MYSQL_USER: ${DB_USERNAME:-laravel}
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - landing_internal
+
+networks:
+  mixpost_network:
+    external: true
+  landing_internal:
+    driver: bridge
+
+volumes:
+  db_data:

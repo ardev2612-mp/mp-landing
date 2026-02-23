@@ -40,8 +40,7 @@ class Registration extends Authenticatable
     public function currentSubscription()
     {
         return $this->subscriptions()
-            ->where('is_active', true)
-            ->where('payment_status', 'success')
+            ->active()
             ->first();
     }
 

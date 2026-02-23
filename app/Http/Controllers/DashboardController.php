@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Registration;
 use App\Models\Subscription;
 use App\Services\MidtransService;
 
@@ -25,15 +26,19 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        /** @var Registration $customer */
         $customer = Auth::guard('customer')->user();
-        $subscription = $customer->currentSubscription();
+        $subscription = $customer->currentSubscription(); // Strictly active & paid & not expired
 
-        // Fallback: if no active subscription, get the latest one
+        // Determine current plan based on ACTIVE subscription (or fallback to free)
+        $currentPlan = $subscription ? $subscription->current_plan : 'free';
+
+        // View might need latest subscription for payment status / history display
+        // even if it's not currently "active" (e.g. pending/expired)
         if (!$subscription) {
             $subscription = $customer->subscriptions()->latest()->first();
         }
 
-        $currentPlan = $subscription ? ($subscription->current_plan ?? $customer->plan_selected) : $customer->plan_selected;
         $planInfo = $this->planData[$currentPlan] ?? $this->planData['free'];
 
         return view('customer.dashboard', compact('customer', 'subscription', 'currentPlan', 'planInfo'));
@@ -44,6 +49,7 @@ class DashboardController extends Controller
      */
     public function upgrade()
     {
+        /** @var Registration $customer */
         $customer = Auth::guard('customer')->user();
         $subscription = $customer->currentSubscription();
 
@@ -75,6 +81,7 @@ class DashboardController extends Controller
         ]);
 
         $newPlan = $request->input('plan');
+        /** @var Registration $customer */
         $customer = Auth::guard('customer')->user();
         $currentPlan = $customer->plan_selected;
 
@@ -90,7 +97,8 @@ class DashboardController extends Controller
         $newPrice = $this->planData[$newPlan]['price'] ?? 0;
 
         // Deactivate current subscription
-        $customer->subscriptions()->where('is_active', true)->update(['is_active' => false]);
+        // REMOVED: Do not deactivate here. Deactivation happens in PaymentController upon success.
+        // $customer->subscriptions()->where('is_active', true)->update(['is_active' => false]);
 
         // Create new subscription
         $orderId = 'UPG-' . uniqid();
