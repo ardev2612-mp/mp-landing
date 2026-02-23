@@ -68,6 +68,14 @@ class PaymentController extends Controller
                             'plan_selected' => $subscription->current_plan,
                             'status' => 'active',
                         ]);
+
+                        // CREATE USER IN MIXPOST
+                        try {
+                            $mixpostService = new \App\Services\MixpostIntegrationService();
+                            $mixpostService->createMixpostUser($registration);
+                        } catch (\Exception $e) {
+                            Log::error('Error triggering Mixpost user creation: ' . $e->getMessage());
+                        }
                     }
                 }
             } elseif ($transactionStatus == 'pending') {

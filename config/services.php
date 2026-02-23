@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'mixpost' => [
+        'url' => env('MIXPOST_API_URL'),
+        'token' => env('MIXPOST_API_TOKEN'),
+    ],
+
 ];
